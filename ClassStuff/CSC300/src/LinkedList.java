@@ -81,8 +81,7 @@ public class LinkedList
 		{
 			addEnd(payload);
 		}		
-		
-		if(index > 0 && index < count )
+		else if(index > 0 && index < count )
 		{
 			Node n = new Node(payload);
 			if(this.head == null)
@@ -131,6 +130,104 @@ public class LinkedList
 				curr = curr.getNextNode();
 			}
 			return curr.getPayload();
+		}
+	}
+	
+	public void printOdds()
+	{
+		Node curr = this.head;
+		System.out.print("The Odd List: ");
+		while(curr != null)
+		{
+			if(curr.getPayload() % 2 == 1)
+			{
+				System.out.print(curr.getPayload() + " ");
+			}
+			curr = curr.getNextNode();
+		}
+	}
+	public int removeFront() throws Exception
+	{
+		if(head == null)
+		{
+			throw new Exception("Can Not Remove Front: Empty List");
+			//throw makes method end right away
+		}
+		Node currNode = head;
+		head = head.getNextNode();
+		//set currNode's next node to null 
+		currNode.setNextNode(null);
+		this.count--;
+		return currNode.getPayload();
+	}
+	
+	public int removeEnd() throws Exception
+	{
+		if(head == null)
+		{
+			throw new Exception("Can Not Remove End: Empty List");
+		}
+		else if(this.count == 1)
+		{
+			return this.removeFront();
+		}
+		else
+		{
+			Node currNode = head;
+			Node payload = head;			
+			while(payload.getNextNode() != null)
+			{
+				payload = payload.getNextNode();
+			}
+			
+			for(int i = 1; i < count-1; i++)
+			{
+				currNode = currNode.getNextNode();
+			}			
+			currNode.setNextNode(null);
+			this.count--;
+			return payload.getPayload();
+		}		
+	}
+	public int removeAtIndex(int index) throws Exception
+	{
+		if(head == null)
+		{
+			throw new Exception("Can Not Remove End: Empty List");
+		}
+		else if(index <= 0)
+		{			
+			return this.removeFront();
+		}
+		else if(this.count < index)
+		{
+			return this.removeEnd();
+			
+		}
+		else
+		{
+			Node currNode = head;
+			Node payload = head;	
+			Node frontNode = head;
+			
+			for(int i = 0; i < index+1; i++)
+			{
+				frontNode = frontNode.getNextNode();
+			}
+			
+			for(int i = 0; i < index; i++)
+			{
+				payload = payload.getNextNode();
+			}
+						
+			for(int i = 0; i < index-1; i++)
+			{
+				currNode = currNode.getNextNode();
+			}
+			currNode.setNextNode(frontNode);
+			this.count--;
+			return payload.getPayload();
+			
 		}
 	}
 }

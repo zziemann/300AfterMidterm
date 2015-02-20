@@ -21,36 +21,32 @@ public class LinkedList
 			System.out.println("Empty List");
 		}
 		else
-		{
-			
+		{			
 			Node currNode = this.head;
 			while(currNode.getNextNode() != null)
 			{
 				System.out.print(currNode.getPayload() + " -> ");
 				currNode = currNode.getNextNode();
 			}
-			System.out.println(currNode.getPayload() + " -> null (finished)");
-			
+			System.out.println(currNode.getPayload() + " -> null (finished)");			
 		}
 	}
 	
-	public void displayReverse()
+	public void displayInReverse()
 	{
 		if(head == null)
 		{
 			System.out.println("Empty List");
 		}
 		else
-		{
-			
+		{			
 			Node currNode = this.tail;
 			while(currNode.getPreviousNode() != null)
 			{
 				System.out.print(currNode.getPayload() + " -> ");
 				currNode = currNode.getPreviousNode();
 			}
-			System.out.println(currNode.getPayload() + " -> null (finished)");
-			
+			System.out.println(currNode.getPayload() + " -> null (finished)");			
 		}
 	}
 	
@@ -251,23 +247,6 @@ public class LinkedList
 			this.count--;
 			return payload.getPayload();			
 		}
-	}
-	
-	public void displayInReverse()
-	{
-		
-	}
-	
-	/*
-	public void displayInReverse()
-	{
-		for(int i = this.count-1; i >= 0; i--)
-		{
-			System.out.print(this.get(i) + "->");
-		}
-		System.out.println(" null");
-	}
-	*/
-	
+	}		
 }
 

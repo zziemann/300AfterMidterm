@@ -2,12 +2,14 @@
 public class LinkedList
 {
 	private Node head;
+	private Node tail;
 	private int count;
-	
+		
 	
 	public LinkedList()
 	{
 		this.head = null;
+		this.tail = null;
 		this.count = 0;
 			
 	}
@@ -32,15 +34,37 @@ public class LinkedList
 		}
 	}
 	
+	public void displayReverse()
+	{
+		if(head == null)
+		{
+			System.out.println("Empty List");
+		}
+		else
+		{
+			
+			Node currNode = this.tail;
+			while(currNode.getPreviousNode() != null)
+			{
+				System.out.print(currNode.getPayload() + " -> ");
+				currNode = currNode.getPreviousNode();
+			}
+			System.out.println(currNode.getPayload() + " -> null (finished)");
+			
+		}
+	}
+	
 	public void addFront(int payload)
 	{
 		Node n = new Node(payload);
 		if(this.head == null)
 		{
-			this.head = n;			
+			this.head = n;	
+			this.tail = n;
 		}
 		else
 		{	
+			this.head.setPreviousNode(n);			
 			n.setNextNode(this.head);			
 			this.head = n;
 		}
@@ -53,20 +77,14 @@ public class LinkedList
 		if(this.head == null)
 		{
 			//if it's the first one it'll be null right away
-			this.head = n;			
+			this.head = n;
+			this.tail = n;
 		}
 		else
 		{
-			//find the last node in the list
-			Node currNode = this.head;
-			//System.out.println(currNode.getNextNode());
-			while(currNode.getNextNode() != null)
-			{
-				//moving along the list til null, end
-				currNode = currNode.getNextNode();				
-			}
-			//currNode will point to the very last Node in the list
-			currNode.setNextNode(n);			
+			this.tail.setNextNode(n);
+			n.setPreviousNode(this.tail);
+			this.tail = n;			
 		}
 		this.count++;
 	}
@@ -83,28 +101,33 @@ public class LinkedList
 		}		
 		else if(index > 0 && index < count )
 		{
-			Node n = new Node(payload);
-			if(this.head == null)
+			if(index <= 0)
 			{
-				this.head = n;
-				count ++;
+				this.addFront(payload);
+			}
+			else if(index >= this.count)
+			{
+				this.addEnd(payload);
 			}
 			else
 			{
-				Node currNode = this.head;			
-				for(int i = 0; i < index; i++)
+				Node n = new Node(payload);
+				Node currFront = head;
+				Node currEnd = tail;
+				for(int i = 0; i < index-1; i++)
 				{
-					currNode = currNode.getNextNode();
+					currFront = currFront.getNextNode();
 				}
-				n.setNextNode(currNode);
 				
-				Node previousNode = this.head;
-				for(int e = 0; e < index-1; e++)
+				for(int i = 0; i < count-index-1; i++)
 				{
-					previousNode = previousNode.getNextNode();
+					currEnd = currEnd.getPreviousNode();
 				}
-				previousNode.setNextNode(n);
-				count++;
+				n.setNextNode(currFront.getNextNode());
+				n.setPreviousNode(currEnd.getPreviousNode());
+				currFront.setNextNode(n);
+				currEnd.setPreviousNode(n);
+				this.count++;
 			}
 		}		
 	}	
@@ -226,9 +249,25 @@ public class LinkedList
 			}
 			currNode.setNextNode(frontNode);
 			this.count--;
-			return payload.getPayload();
-			
+			return payload.getPayload();			
 		}
 	}
+	
+	public void displayInReverse()
+	{
+		
+	}
+	
+	/*
+	public void displayInReverse()
+	{
+		for(int i = this.count-1; i >= 0; i--)
+		{
+			System.out.print(this.get(i) + "->");
+		}
+		System.out.println(" null");
+	}
+	*/
+	
 }
 

@@ -18,6 +18,15 @@ public class Driver
 		 ll.display();		 
 		 ll.addFront(55);		 
 		 ll.addEnd(3);
+		 ll.addEnd(0);
+		 ll.addFront(222);
+		 ll.addEnd(1);
+		 ll.addAtIndex(33,3);
+		 ll.display();
+		 ll.displayReverse();
+		 
+		 
+		 /*
 		 ll.addAtIndex(111,1);
 		 ll.display();
 		 ll.addFront(6);
@@ -28,6 +37,7 @@ public class Driver
 		 ll.display();
 		 
 		 ll.removeAtIndex(4);
-		 ll.display();
+		 ll.display(); */
+		 
 	}
 }

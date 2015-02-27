@@ -8,6 +8,11 @@ public class Stack
 		this.head = null;
 	}
 	
+	public boolean isEmpty()
+	{
+		return this.head == null;
+	}
+	
 	public void display()
 	{
 		if(head == null)
@@ -40,16 +45,18 @@ public class Stack
 		}
 	}
 	
-	public void pop() throws Exception 
+	public int pop() throws Exception
 	{
-		if(head == null)
+		if(this.head == null)
 		{
-			throw new Exception("Can Not Pop: Empty List");			
+			throw new Exception("Emtpy Stack!!!  Cry More");
 		}
-		Node currNode = head;
-		head = head.getNextNode();		 
-		currNode.setNextNode(null);
-		
+		else
+		{
+			int valToReturn = this.head.getPayload();
+			this.head = this.head.getNextNode();
+			return valToReturn;
+		}
 	}
 	
 	public int peek() throws Exception

@@ -17,8 +17,6 @@ public class BinaryTree
 	}
 	public void displayInOrder() 
 	{
-		//System.out.println("**** In Order ****");
-		
 		if(this.root == null)
 		{
 			System.out.println("Empty Tree");
@@ -29,11 +27,9 @@ public class BinaryTree
 			if(currNode.getVisited() == false)
 			{
 				System.out.print(currNode.getPayload() + " -> ");
-				//this.root.trueVisited(currNode);
 				currNode.setVisited(true);
 				count--;
-			}		
-			
+			}					
 			//if we can move down the left side
 			if(currNode.getLeftNode() != null)
 			{							
@@ -42,17 +38,13 @@ public class BinaryTree
 			}		
 			
 			if(currNode.getRightNode() != null)
-			{
-				//System.out.println("here");				
+			{			
 				currNode = currNode.getRightNode();
 				displayInOrder();				
 			}			
 			
 			if(currNode.getLeftNode() == null && currNode.getRightNode() == null) 
-			{		
-				
-				//System.out.print("down here");
-				//System.out.print(currNode.getLeftNode().getPayload() + " -> ");
+			{						
 				if(currNode.getParentNode().getLeftNode() != null)
 				{
 					currNode.getParentNode().setLeftNode(null);
@@ -110,8 +102,7 @@ public class BinaryTree
 					displayPostOrder();
 				}
 			}			
-		}
-		
+		}		
 	}
 	
 	public void add(int value)

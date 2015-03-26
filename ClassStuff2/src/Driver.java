@@ -19,13 +19,11 @@ public class Driver
 		bt.add(24);
 		bt.add(1);
 		bt.add(3);
-		bt.add(38);
-		//bt.count();
+		bt.add(38);		
 		bt.displayInOrder();
-		bt.count(); 
-		//bt.displayInOrder();
+		bt.count();		
 		//bt.displayPostOrder();
-		bt.count();
+		
 
 	}
 }

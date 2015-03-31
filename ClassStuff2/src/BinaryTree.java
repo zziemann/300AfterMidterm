@@ -1,123 +1,159 @@
-public class BinaryTree 
-{	
-	private Node root;
-	private Node currNode;
-	public int count;
+public class BinaryTree
+{
+	//private Node root;
+	private boolean isEmpty;
+	private int payload;
+	private BinaryTree leftTree;
+	private BinaryTree rightTree;
 	
 	public BinaryTree()
 	{
-		this.root = null;
-		this.currNode = null;
-		this.count = 0;
+		this.isEmpty = true;		
+		this.leftTree = null;
+		this.rightTree = null;
 	}
 	
-	public void count()
-	{
-		System.out.println("Count is: " + count);
-	}
-	public void displayInOrder() 
-	{
-		if(this.root == null)
+	public boolean search(int value)
+	{		
+		if(isEmpty == true)
 		{
-			System.out.println("Empty Tree");
-		}
-		else if(count > 0)
-		{			
-			//if we haven't already displayed this payload
-			if(currNode.getVisited() == false)
+			return false;
+		}		
+		else
+		{
+			if(value == this.payload)
 			{
-				System.out.print(currNode.getPayload() + " -> ");
-				currNode.setVisited(true);
-				count--;
-			}					
-			//if we can move down the left side
-			if(currNode.getLeftNode() != null)
-			{							
-				currNode = currNode.getLeftNode();					
-				displayInOrder();				
-			}		
-			
-			if(currNode.getRightNode() != null)
-			{			
-				currNode = currNode.getRightNode();
-				displayInOrder();				
-			}			
-			
-			if(currNode.getLeftNode() == null && currNode.getRightNode() == null) 
-			{						
-				if(currNode.getParentNode().getLeftNode() != null)
+				return true;
+			}
+			else if (value < this.payload)
+			{
+				if(this.leftTree == null)
 				{
-					currNode.getParentNode().setLeftNode(null);
-					currNode = root;
-					displayInOrder();					
+					return false;
 				}
 				else
 				{
-					currNode.getParentNode().setRightNode(null);
-					currNode = root;
-					displayInOrder();
+					return this.leftTree.search(value);
 				}
-			}		
+			}
+			else if (value > this.payload)
+			{
+				if(this.rightTree == null)
+				{
+					return false;
+				}
+				else
+				{
+					return this.rightTree.search(value);
+				}
+			}
 		}
+		return false;
+	}
+	
+	private void visitInOrder()
+	{
+		if(this.leftTree != null)
+		{
+			this.leftTree.visitInOrder(); 
+		}
+		System.out.println(this.payload);
+		if(this.rightTree != null)
+		{
+			this.rightTree.visitInOrder();
+		}
+	}
+
+	public void displayInOrder()
+	{
+		System.out.println("**** In Order ****");
+		if(this.isEmpty)
+		{
+			System.out.println("Empty Tree");
+		}
+		else
+		{
+			this.visitInOrder();
+		}
+	}
+	
+	private void visitPreOrder()
+	{
+		System.out.println(this.payload);
+		if(this.leftTree != null)
+		{
+			this.leftTree.visitPreOrder();
+		}
+		if(this.rightTree != null)
+		{
+			this.rightTree.visitPreOrder();
+		}
+	}
+	
+	public void displayPreOrder()
+	{
+		System.out.println("**** Pre Order ****");
+		if(this.isEmpty)
+		{
+			System.out.println("Empty Tree");
+		}
+		else
+		{
+			this.visitPreOrder();
+		}
+	}
+	
+	private void visitPostOrder()
+	{
+		if(this.leftTree != null)
+		{
+			this.leftTree.visitPostOrder();
+		}
+		if(this.rightTree != null)
+		{
+			this.rightTree.visitPostOrder();
+		}
+		System.out.println(this.payload);
 	}
 	
 	public void displayPostOrder()
-	{		
-		if(this.root == null)
+	{
+		System.out.println("**** Post Order ****");
+		if(this.isEmpty)
 		{
 			System.out.println("Empty Tree");
-		}		
-		else if(count > 1)
+		}
+		else
 		{
-			if(currNode.getLeftNode() != null)
-			{							
-				currNode = currNode.getLeftNode();					
-				displayPostOrder();				
-			}
-			if(currNode.getVisited() == false)
-			{
-				System.out.print(currNode.getPayload() + " -> ");
-				currNode.setVisited(true);
-				count--;				
-			}
-			else 
-			{
-				if(currNode.getRightNode() == null)
-				{
-					if(currNode.getParentNode().getLeftNode() != null)
-					{
-						currNode.getParentNode().setLeftNode(null);
-						currNode = this.root;
-					}
-					else
-					{
-						currNode.getParentNode().setRightNode(null);
-						currNode = this.root;
-					}					
-					displayPostOrder();
-				}
-				else
-				{
-					currNode = currNode.getRightNode();
-					displayPostOrder();
-				}
-			}			
-		}		
+			this.visitPostOrder();
+		}
 	}
 	
 	public void add(int value)
 	{
-		Node theNode = new Node(value);
-		if(this.root == null)
+		if(this.isEmpty)
 		{
-			this.root = theNode;
-			currNode = this.root;
-			count++;
+			this.payload = value;
+			this.isEmpty = false;
 		}
 		else
 		{
-			this.root.addNode(theNode);
-			count++;
+			if(value <= this.payload)
+			{
+				if(this.leftTree == null)
+				{
+					this.leftTree = new BinaryTree();	
+				}
+				this.leftTree.add(value);
+			}
+			else
+			{
+				if(this.rightTree == null)
+				{
+					this.rightTree = new BinaryTree();
+				}
+				this.rightTree.add(value);
+			}
 		}
 	}
 }

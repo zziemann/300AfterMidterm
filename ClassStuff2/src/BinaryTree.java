@@ -5,12 +5,18 @@ public class BinaryTree
 	private int payload;
 	private BinaryTree leftTree;
 	private BinaryTree rightTree;
+	private int depth = -1;
 	
-	public BinaryTree()
+	private BinaryTree(int depth)
 	{
 		this.isEmpty = true;		
 		this.leftTree = null;
 		this.rightTree = null;
+		this.depth = depth;
+	}
+	public BinaryTree()
+	{
+		this(0);
 	}
 	
 	public boolean search(int value)
@@ -51,13 +57,13 @@ public class BinaryTree
 		return false;
 	}
 	
-	private void visitInOrder()
+	public void visitInOrder()
 	{
 		if(this.leftTree != null)
 		{
 			this.leftTree.visitInOrder(); 
 		}
-		System.out.println(this.payload);
+		System.out.println(this.payload + "+" + this.depth);
 		if(this.rightTree != null)
 		{
 			this.rightTree.visitInOrder();
@@ -79,7 +85,7 @@ public class BinaryTree
 	
 	private void visitPreOrder()
 	{
-		System.out.println(this.payload);
+		System.out.println(this.payload + "+" + this.depth);
 		if(this.leftTree != null)
 		{
 			this.leftTree.visitPreOrder();
@@ -117,6 +123,7 @@ public class BinaryTree
 	}
 	
 	public void displayPostOrder()
+
 	{
 		System.out.println("**** Post Order ****");
 		if(this.isEmpty)
@@ -126,6 +133,82 @@ public class BinaryTree
 		else
 		{
 			this.visitPostOrder();
+		}
+	}
+
+	public int getMaxDepth()
+	{
+		if(this.leftTree == null && this.rightTree == null)
+		{
+			return this.depth;
+		}
+		else if(this.leftTree == null)
+		{
+			return this.rightTree.getMaxDepth();
+		}
+		else if(this.rightTree == null)
+		{
+			return this.leftTree.getMaxDepth();
+		}
+		else
+		{
+			return Math.max(this.leftTree.getMaxDepth(), this.rightTree.getMaxDepth());
+		}
+	}
+	
+	public boolean isBalanced()
+	{
+		if(this.isEmpty)
+		{
+			return true;
+		}
+		else
+		{
+			//get depths of left
+			//IN LINE IF STATEMENT - boolean-expr?true-val:false-val  (not necessary to learn)
+			int currMaxLeftDepth = this.leftTree == null?this.depth:this.leftTree.getMaxDepth();
+			int currMaxRightDepth = this.rightTree == null?this.depth:this.rightTree.getMaxDepth();
+			System.out.println("Max Left = " + currMaxLeftDepth );
+			System.out.println("Max Right = " + currMaxRightDepth );
+			return Math.abs(currMaxLeftDepth - currMaxRightDepth) <= 1;
+		}
+	}
+	
+	public BinaryTree rotateRight(BinaryTree parent)
+	{
+		//rotating the pointers so that the list can be balanced
+		System.out.println("rotating right");
+		BinaryTree child = parent.leftTree;
+		child.rightTree = parent;
+		parent.leftTree = null;
+		this.leftTree = child;		
+		return child;
+	}
+	
+	public BinaryTree rotateLeft(BinaryTree parent)
+	{
+		//rotating the pointers so that the list can be balanced
+		System.out.println("rotating left");
+		BinaryTree child = parent.rightTree;
+		child.leftTree = parent;
+		parent.rightTree = null;
+		this.rightTree = child;
+		return child;
+	}
+	
+	public void reBalance()
+	{
+		//if we need to rebalance the tree
+		System.out.println("rebalancing");
+		if(this.rightTree == null)
+		{
+			//means the left side is too deep
+			rotateRight(this.leftTree);
+		}
+		if(this.leftTree == null)
+			//means the right side is too deep
+		{
+			rotateLeft(this.rightTree);
 		}
 	}
 	
@@ -142,7 +225,7 @@ public class BinaryTree
 			{
 				if(this.leftTree == null)
 				{
-					this.leftTree = new BinaryTree();	
+					this.leftTree = new BinaryTree(this.depth+1);	
 				}
 				this.leftTree.add(value);
 			}
@@ -150,10 +233,17 @@ public class BinaryTree
 			{
 				if(this.rightTree == null)
 				{
-					this.rightTree = new BinaryTree();
+					this.rightTree = new BinaryTree(this.depth+1);
 				}
 				this.rightTree.add(value);
 			}
 		}
+		if(!this.isBalanced())
+		{
+			//it's not balanced, we need to fix it so run our reBalance program
+			System.out.println("HERE");
+			this.reBalance();
+		}
+		
 	}
 }

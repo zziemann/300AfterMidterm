@@ -1,20 +1,12 @@
 public class Driver 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
-		//BinaryTreeLitman bt = new BinaryTreeLitman();
-		BinaryTree b = new BinaryTree();
-		b.add(6);		
-		b.add(5);		
-		b.add(7);
-		//b.displayInOrder();
-		b.add(8);
-		b.add(9);
-		
-		b.add(10);
-		b.displayInOrder();	
-		System.out.println(b.isBalanced());
-		//b.displayPreOrder();
-		
+		Parser p = new Parser("     a =  (a * b )- c;");
+		Parser p2 = new Parser("     a = b - c;");
+		Parser p4 = new Parser("     a = a * (b - c );  ");
+		Parser p3 = new Parser("     a =  (w - (t+ (a * b )))- c;");
+
+		p3.parse();
 	}
 }

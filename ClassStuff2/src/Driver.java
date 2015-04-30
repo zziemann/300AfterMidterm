@@ -2,11 +2,13 @@ public class Driver
 {
 	public static void main(String[] args)
 	{
-		Parser p = new Parser("     a =  (a * b )- c;");
-		Parser p2 = new Parser("     a = b - c;");
-		Parser p4 = new Parser("     a = a * (b - c );  ");
-		Parser p3 = new Parser("     a =  (w - (t+ (a * b )))- c;");
-
-		p3.parse();
+		/*
+		Parser p = new Parser("     a =     (a *   b) - c;");
+		Parser p2 = new Parser("a = ((a+k) * (a + (b/n))) - c;");
+		//p.parse();
+		p2.parse();
+		*/
+		Parser p = new Parser("     apple =     (a *   b) - c;");
+		p.parse();
 	}
 }

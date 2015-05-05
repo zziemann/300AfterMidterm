@@ -6,4 +6,9 @@ public class OpExpression extends Expression
 	{
 		this.theOp = theOp;
 	}
+	
+	public String toString()
+	{
+		return theOp;
+	}
 }

@@ -1,4 +1,4 @@
-public class VarDefStatement 
+public class VarDefStatement extends Object
 {
 	private VarExpression theVarExpr;
 	private MathExpression theMathExpr;
@@ -7,5 +7,10 @@ public class VarDefStatement
 	{
 		this.theVarExpr = theVarExpr;
 		this.theMathExpr = theMathExpr;
+	}
+	
+	public String toString()
+	{
+		return theVarExpr.toString()+"="+theMathExpr.toString()+";";
 	}
 }

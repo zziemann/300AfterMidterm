@@ -10,4 +10,9 @@ public class MathExpression extends Expression
 		this.rightOperand = rightOperand;
 		this.operator = operator;
 	}
+	
+	public String toString()
+	{
+		return "("+leftOperand.toString()+operator.toString()+rightOperand.toString()+")";
+	}
 }
